@@ -1,0 +1,2524 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>EduCloud - Learn Without Limits</title>
+
+    <meta name="description"
+        content="EduCloud is a modern online learning platform showcasing courses, learning progress, and cloud computing technology.">
+
+    <style>
+        /* =========================
+           1. GLOBAL STYLES
+        ========================= */
+
+        :root {
+            --primary: #6558e8;
+            --primary-dark: #5144cf;
+            --secondary: #11bfae;
+
+            --background: #f7f8fc;
+            --surface: #ffffff;
+            --text: #20243a;
+            --muted: #777e94;
+            --border: #e8eaf2;
+
+            --shadow: 0 10px 35px rgba(38, 43, 82, 0.06);
+        }
+
+        body.dark {
+            --background: #101321;
+            --surface: #191d30;
+            --text: #f4f5ff;
+            --muted: #a5abc1;
+            --border: #2b3048;
+
+            --shadow: 0 10px 35px rgba(0, 0, 0, 0.15);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+            scroll-padding-top: 100px;
+        }
+
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            background: var(--background);
+            color: var(--text);
+            line-height: 1.6;
+            transition: background 0.3s, color 0.3s;
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+
+        button,
+        input {
+            font: inherit;
+        }
+
+        button {
+            cursor: pointer;
+        }
+
+        .container {
+            width: min(1180px, 92%);
+            margin: auto;
+        }
+
+        .section {
+            padding: 85px 0;
+        }
+
+        .section-title {
+            font-size: clamp(28px, 4vw, 38px);
+            margin-bottom: 10px;
+            letter-spacing: -1px;
+        }
+
+        .section-description {
+            color: var(--muted);
+            margin-bottom: 35px;
+        }
+
+        .gradient-text {
+            background: linear-gradient(110deg, #6558e8, #11bfae);
+            background-clip: text;
+            -webkit-background-clip: text;
+            color: transparent;
+        }
+
+        .button {
+            display: inline-flex;
+            justify-content: center;
+            align-items: center;
+            gap: 8px;
+
+            padding: 13px 21px;
+            border: none;
+            border-radius: 10px;
+
+            background: var(--primary);
+            color: white;
+
+            font-weight: 600;
+            transition: 0.25s;
+        }
+
+        .button:hover {
+            background: var(--primary-dark);
+            transform: translateY(-2px);
+        }
+
+        .button-outline {
+            color: var(--text);
+            background: var(--surface);
+            border: 1px solid var(--border);
+        }
+
+        .button-outline:hover {
+            color: white;
+        }
+
+
+        /* =========================
+           2. NAVIGATION BAR
+        ========================= */
+
+        .navbar {
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+
+            background: var(--surface);
+            border-bottom: 1px solid var(--border);
+        }
+
+        .nav-inner {
+            min-height: 76px;
+
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .logo {
+            font-size: 25px;
+            font-weight: 800;
+            letter-spacing: -1px;
+            white-space: nowrap;
+        }
+
+        .logo-icon {
+            color: var(--primary);
+        }
+
+        .nav-links {
+            display: flex;
+            align-items: center;
+            gap: 26px;
+        }
+
+        .nav-links a {
+            color: var(--muted);
+            font-size: 14px;
+            font-weight: 600;
+            transition: color 0.2s;
+        }
+
+        .nav-links a:hover {
+            color: var(--primary);
+        }
+
+        .nav-actions {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .theme-button {
+            width: 42px;
+            height: 42px;
+
+            border: 1px solid var(--border);
+            border-radius: 10px;
+
+            background: var(--surface);
+            color: var(--text);
+            font-size: 19px;
+        }
+
+
+        /* =========================
+           3. HERO SECTION
+        ========================= */
+
+        .hero {
+            padding: 85px 0 75px;
+            overflow: hidden;
+
+            background:
+                radial-gradient(
+                    circle at 85% 20%,
+                    rgba(101, 88, 232, 0.13),
+                    transparent 35%
+                ),
+                radial-gradient(
+                    circle at 10% 90%,
+                    rgba(17, 191, 174, 0.10),
+                    transparent 30%
+                );
+        }
+
+        .hero-grid {
+            display: grid;
+            grid-template-columns: 1.1fr 0.9fr;
+            align-items: center;
+            gap: 55px;
+        }
+
+        .hero-badge {
+            display: inline-block;
+
+            padding: 8px 14px;
+            margin-bottom: 22px;
+
+            color: var(--primary);
+            background: rgba(101, 88, 232, 0.10);
+
+            border-radius: 50px;
+            font-size: 13px;
+            font-weight: 700;
+        }
+
+        .hero h1 {
+            font-size: clamp(39px, 5.5vw, 65px);
+            line-height: 1.12;
+            letter-spacing: -2px;
+            margin-bottom: 22px;
+        }
+
+        .hero-description {
+            max-width: 540px;
+            color: var(--muted);
+            font-size: 16px;
+            margin-bottom: 28px;
+        }
+
+        .hero-buttons {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 13px;
+        }
+
+        .hero-note {
+            margin-top: 25px;
+            color: var(--muted);
+            font-size: 13px;
+        }
+
+        .hero-visual {
+            position: relative;
+        }
+
+        .learning-card {
+            padding: 28px;
+            border-radius: 24px;
+
+            background: var(--surface);
+            border: 1px solid var(--border);
+            box-shadow: var(--shadow);
+
+            transform: rotate(1deg);
+        }
+
+        .learning-card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 25px;
+        }
+
+        .learning-card-header h3 {
+            font-size: 18px;
+        }
+
+        .live-badge {
+            padding: 5px 9px;
+            border-radius: 7px;
+
+            color: #079b82;
+            background: rgba(17, 191, 174, 0.12);
+
+            font-size: 11px;
+            font-weight: 700;
+        }
+
+        .hero-course {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+
+            padding: 15px;
+            margin-bottom: 13px;
+
+            border: 1px solid var(--border);
+            border-radius: 14px;
+        }
+
+        .course-icon {
+            width: 50px;
+            height: 50px;
+            flex-shrink: 0;
+
+            display: grid;
+            place-items: center;
+
+            font-size: 25px;
+            border-radius: 12px;
+        }
+
+        .icon-purple {
+            background: #eeebff;
+        }
+
+        .icon-green {
+            background: #dcf9f1;
+        }
+
+        .icon-orange {
+            background: #fff0df;
+        }
+
+        .icon-blue {
+            background: #e0efff;
+        }
+
+        .hero-course h4 {
+            font-size: 14px;
+            margin-bottom: 3px;
+        }
+
+        .hero-course p {
+            font-size: 12px;
+            color: var(--muted);
+        }
+
+        .hero-progress {
+            height: 7px;
+            background: var(--border);
+            border-radius: 10px;
+            margin-top: 9px;
+            overflow: hidden;
+        }
+
+        .hero-progress span {
+            display: block;
+            height: 100%;
+            width: 72%;
+            background: var(--primary);
+            border-radius: 10px;
+        }
+
+
+        /* =========================
+           4. STATS
+        ========================= */
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+        }
+
+        .stat-card {
+            padding: 24px;
+
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+
+            box-shadow: var(--shadow);
+        }
+
+        .stat-top {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 12px;
+        }
+
+        .stat-icon {
+            font-size: 25px;
+        }
+
+        .stat-card h3 {
+            font-size: 31px;
+            line-height: 1.3;
+        }
+
+        .stat-card p {
+            color: var(--muted);
+            font-size: 13px;
+        }
+
+
+        /* =========================
+           5. COURSE SEARCH
+        ========================= */
+
+        .courses-section {
+            background: var(--surface);
+        }
+
+        .course-toolbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 18px;
+            flex-wrap: wrap;
+            margin-bottom: 27px;
+        }
+
+        .search-box {
+            width: min(100%, 330px);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+
+            padding: 12px 15px;
+
+            background: var(--background);
+            border: 1px solid var(--border);
+            border-radius: 11px;
+        }
+
+        .search-box input {
+            width: 100%;
+            border: none;
+            outline: none;
+
+            color: var(--text);
+            background: transparent;
+            font-size: 14px;
+        }
+
+        .filter-buttons {
+            display: flex;
+            gap: 9px;
+            flex-wrap: wrap;
+        }
+
+        .filter-button {
+            padding: 9px 14px;
+
+            color: var(--muted);
+            background: var(--surface);
+
+            border: 1px solid var(--border);
+            border-radius: 9px;
+
+            font-size: 12px;
+            font-weight: 700;
+        }
+
+        .filter-button.active,
+        .filter-button:hover {
+            color: white;
+            background: var(--primary);
+            border-color: var(--primary);
+        }
+
+
+        /* =========================
+           6. COURSE CARDS
+        ========================= */
+
+        .course-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 23px;
+        }
+
+        .course-card {
+            overflow: hidden;
+
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+
+            transition: transform 0.25s, box-shadow 0.25s;
+        }
+
+        .course-card:hover {
+            transform: translateY(-6px);
+            box-shadow: var(--shadow);
+        }
+
+        .course-banner {
+            min-height: 155px;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            font-size: 60px;
+        }
+
+        .banner-purple {
+            background: linear-gradient(135deg, #e6e0ff, #f3e9ff);
+        }
+
+        .banner-blue {
+            background: linear-gradient(135deg, #dceaff, #e6f8ff);
+        }
+
+        .banner-orange {
+            background: linear-gradient(135deg, #ffead8, #fff4e8);
+        }
+
+        .banner-green {
+            background: linear-gradient(135deg, #d6f8e9, #e8fff3);
+        }
+
+        .banner-pink {
+            background: linear-gradient(135deg, #ffe1f0, #fff0f7);
+        }
+
+        .banner-yellow {
+            background: linear-gradient(135deg, #fff0c5, #fff8e5);
+        }
+
+        .course-body {
+            padding: 22px;
+        }
+
+        .course-category {
+            display: inline-block;
+            margin-bottom: 12px;
+
+            color: var(--primary);
+            font-size: 11px;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 0.7px;
+        }
+
+        .course-body h3 {
+            font-size: 19px;
+            margin-bottom: 9px;
+        }
+
+        .course-description {
+            color: var(--muted);
+            font-size: 13px;
+            min-height: 63px;
+        }
+
+        .course-meta {
+            display: flex;
+            justify-content: space-between;
+            gap: 10px;
+
+            padding: 16px 0;
+            margin-top: 12px;
+
+            border-top: 1px solid var(--border);
+            border-bottom: 1px solid var(--border);
+
+            color: var(--muted);
+            font-size: 12px;
+        }
+
+        .course-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 12px;
+            margin-top: 17px;
+        }
+
+        .level {
+            font-size: 12px;
+            color: var(--muted);
+        }
+
+        .course-button {
+            padding: 9px 13px;
+            border: none;
+            border-radius: 8px;
+
+            background: var(--primary);
+            color: white;
+
+            font-size: 12px;
+            font-weight: 700;
+        }
+
+        .course-button:hover {
+            background: var(--primary-dark);
+        }
+
+        .no-results {
+            display: none;
+            padding: 35px 10px;
+            text-align: center;
+            color: var(--muted);
+        }
+
+
+        /* =========================
+           7. LEARNING DASHBOARD
+        ========================= */
+
+        .dashboard-grid {
+            display: grid;
+            grid-template-columns: 1.2fr 0.8fr;
+            gap: 25px;
+        }
+
+        .dashboard-card {
+            padding: 27px;
+
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 17px;
+
+            box-shadow: var(--shadow);
+        }
+
+        .dashboard-card h3 {
+            margin-bottom: 7px;
+        }
+
+        .dashboard-subtitle {
+            margin-bottom: 25px;
+            color: var(--muted);
+            font-size: 13px;
+        }
+
+        .progress-item {
+            margin-bottom: 24px;
+        }
+
+        .progress-heading {
+            display: flex;
+            justify-content: space-between;
+            gap: 12px;
+            margin-bottom: 9px;
+
+            font-size: 13px;
+        }
+
+        .progress-heading span:last-child {
+            color: var(--primary);
+            font-weight: 700;
+        }
+
+        .progress-track {
+            height: 9px;
+            overflow: hidden;
+
+            background: var(--border);
+            border-radius: 20px;
+        }
+
+        .progress-fill {
+            height: 100%;
+            border-radius: 20px;
+            background: linear-gradient(90deg, var(--primary), #9b8dff);
+        }
+
+        .dashboard-note {
+            padding: 13px;
+            margin-top: 10px;
+
+            border-radius: 10px;
+
+            background: rgba(17, 191, 174, 0.09);
+            color: var(--muted);
+            font-size: 12px;
+        }
+
+        .achievement {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+
+            padding: 15px 0;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .achievement:last-child {
+            border-bottom: none;
+        }
+
+        .achievement-icon {
+            width: 48px;
+            height: 48px;
+            flex-shrink: 0;
+
+            display: grid;
+            place-items: center;
+
+            background: rgba(101, 88, 232, 0.10);
+            border-radius: 12px;
+            font-size: 24px;
+        }
+
+        .achievement h4 {
+            font-size: 14px;
+            margin-bottom: 3px;
+        }
+
+        .achievement p {
+            color: var(--muted);
+            font-size: 12px;
+        }
+
+
+        /* =========================
+           8. CLOUD COMPUTING
+        ========================= */
+
+        .cloud-section {
+            background:
+                linear-gradient(
+                    135deg,
+                    rgba(101, 88, 232, 0.09),
+                    rgba(17, 191, 174, 0.06)
+                );
+        }
+
+        .cloud-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 22px;
+        }
+
+        .cloud-card {
+            padding: 27px;
+
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+        }
+
+        .cloud-card .cloud-icon {
+            font-size: 32px;
+            margin-bottom: 15px;
+        }
+
+        .cloud-card h3 {
+            margin-bottom: 10px;
+        }
+
+        .cloud-card p {
+            color: var(--muted);
+            font-size: 14px;
+        }
+
+
+        /* =========================
+           9. PRACTICAL EVIDENCE
+        ========================= */
+
+        .evidence-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 22px;
+        }
+
+        .evidence-card {
+            padding: 25px;
+            text-align: center;
+
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+        }
+
+        .evidence-icon {
+            font-size: 40px;
+            margin-bottom: 15px;
+        }
+
+        .evidence-card h3 {
+            font-size: 18px;
+            margin-bottom: 8px;
+        }
+
+        .evidence-card p {
+            color: var(--muted);
+            font-size: 13px;
+            margin-bottom: 18px;
+        }
+
+        .evidence-preview {
+            width: 100%;
+            aspect-ratio: 16 / 10;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            padding: 12px;
+            margin-bottom: 17px;
+
+            border: 1px dashed var(--border);
+            border-radius: 10px;
+
+            background: var(--background);
+            color: var(--muted);
+
+            overflow: hidden;
+        }
+
+        .evidence-preview img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+        }
+
+        .upload-button {
+            display: inline-block;
+            padding: 10px 13px;
+
+            background: var(--primary);
+            color: white;
+
+            border-radius: 8px;
+            font-size: 12px;
+            font-weight: 700;
+            cursor: pointer;
+        }
+
+        .upload-button:hover {
+            background: var(--primary-dark);
+        }
+
+        .evidence-input {
+            display: none;
+        }
+
+
+        /* =========================
+           10. FOOTER
+        ========================= */
+
+        footer {
+            padding: 45px 0 25px;
+
+            background: var(--surface);
+            border-top: 1px solid var(--border);
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: 1.4fr 1fr 1fr;
+            gap: 35px;
+            margin-bottom: 35px;
+        }
+
+        .footer-about p {
+            max-width: 330px;
+            margin-top: 13px;
+            color: var(--muted);
+            font-size: 13px;
+        }
+
+        .footer-links h4 {
+            margin-bottom: 12px;
+        }
+
+        .footer-links a {
+            display: block;
+            width: fit-content;
+
+            margin: 8px 0;
+
+            color: var(--muted);
+            font-size: 13px;
+        }
+
+        .footer-links a:hover {
+            color: var(--primary);
+        }
+
+        .footer-bottom {
+            padding-top: 20px;
+            border-top: 1px solid var(--border);
+
+            color: var(--muted);
+            font-size: 12px;
+            text-align: center;
+        }
+
+
+        /* =========================
+           11. TOAST MESSAGE
+        ========================= */
+
+        .toast {
+            position: fixed;
+            right: 20px;
+            bottom: 20px;
+            z-index: 2000;
+
+            max-width: calc(100% - 40px);
+            padding: 15px 20px;
+
+            background: #20243a;
+            color: white;
+
+            border-radius: 12px;
+            box-shadow: var(--shadow);
+
+            opacity: 0;
+            transform: translateY(20px);
+            pointer-events: none;
+
+            transition: 0.3s;
+            font-size: 14px;
+        }
+
+        .toast.show {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+
+        /* =========================
+           12. RESPONSIVE DESIGN
+        ========================= */
+
+        @media (max-width: 950px) {
+
+            .hero-grid {
+                grid-template-columns: 1fr;
+                gap: 35px;
+            }
+
+            .hero-content {
+                max-width: 720px;
+            }
+
+            .hero-visual {
+                max-width: 580px;
+            }
+
+            .course-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .dashboard-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .nav-links {
+                gap: 14px;
+            }
+
+            .nav-links a {
+                font-size: 12px;
+            }
+        }
+
+        @media (max-width: 650px) {
+
+            .nav-inner {
+                padding: 15px 0;
+                flex-wrap: wrap;
+            }
+
+            .nav-links {
+                order: 3;
+                width: 100%;
+                flex-wrap: wrap;
+            }
+
+            .nav-actions {
+                margin-left: auto;
+            }
+
+            .hero {
+                padding: 60px 0;
+            }
+
+            .hero h1 {
+                letter-spacing: -1px;
+            }
+
+            .stats-grid,
+            .course-grid,
+            .cloud-grid,
+            .evidence-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .course-toolbar {
+                align-items: stretch;
+            }
+
+            .search-box {
+                width: 100%;
+            }
+
+            .section {
+                padding: 60px 0;
+            }
+
+            .learning-card {
+                padding: 18px;
+            }
+
+            .footer-grid {
+                grid-template-columns: 1fr;
+                gap: 25px;
+            }
+
+            .dashboard-card {
+                padding: 20px;
+            }
+        }
+    </style>
+
+</head>
+
+<body>
+
+    <!-- NAVIGATION BAR -->
+
+    <header class="navbar">
+
+        <div class="container nav-inner">
+
+            <a href="#home" class="logo">
+                <span class="logo-icon">✦</span> EduCloud
+            </a>
+
+            <nav class="nav-links">
+                <a href="#home">Home</a>
+                <a href="#courses">Courses</a>
+                <a href="#dashboard">Dashboard</a>
+                <a href="#cloud">Cloud Tech</a>
+                <a href="#evidence">Practical</a>
+            </nav>
+
+            <div class="nav-actions">
+
+                <button
+                    class="theme-button"
+                    id="themeButton"
+                    aria-label="Toggle dark mode"
+                    title="Toggle theme">
+                    🌙
+                </button>
+
+            </div>
+
+        </div>
+
+    </header>
+
+
+    <main>
+
+        <!-- HERO SECTION -->
+
+        <section class="hero" id="home">
+
+            <div class="container hero-grid">
+
+                <div class="hero-content">
+
+                    <span class="hero-badge">
+                        🎓 YOUR DIGITAL LEARNING SPACE
+                    </span>
+
+                    <h1>
+                        Learn Skills.<br>
+                        Build Your <span class="gradient-text">
+                            Future.
+                        </span>
+                    </h1>
+
+                    <p class="hero-description">
+                        Discover new skills, explore technology,
+                        and track your learning journey with EduCloud.
+                        A modern learning platform designed for students
+                        and lifelong learners.
+                    </p>
+
+                    <div class="hero-buttons">
+
+                        <a href="#courses" class="button">
+                            Explore Courses →
+                        </a>
+
+                        <a href="#cloud"
+                           class="button button-outline">
+                            Discover Cloud
+                        </a>
+
+                    </div>
+
+                    <p class="hero-note">
+                        ☁️ A Cloud Computing practical project
+                    </p>
+
+                </div>
+
+
+                <!-- HERO DASHBOARD PREVIEW -->
+
+                <div class="hero-visual">
+
+                    <div class="learning-card">
+
+                        <div class="learning-card-header">
+
+                            <h3>My Learning Space</h3>
+
+                            <span class="live-badge">
+                                DEMO
+                            </span>
+
+                        </div>
+
+
+                        <div class="hero-course">
+
+                            <div class="course-icon icon-purple">
+                                💻
+                            </div>
+
+                            <div style="flex:1;">
+
+                                <h4>Web Development</h4>
+
+                                <p>12 lessons · Beginner</p>
+
+                                <div class="hero-progress">
+                                    <span></span>
+                                </div>
+
+                            </div>
+
+                        </div>
+
+
+                        <div class="hero-course">
+
+                            <div class="course-icon icon-green">
+                                ☁️
+                            </div>
+
+                            <div>
+
+                                <h4>Cloud Computing</h4>
+
+                                <p>8 lessons · Beginner</p>
+
+                            </div>
+
+                        </div>
+
+
+                        <div class="hero-course">
+
+                            <div class="course-icon icon-orange">
+                                🐍
+                            </div>
+
+                            <div>
+
+                                <h4>Python Programming</h4>
+
+                                <p>10 lessons · Beginner</p>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- PLATFORM STATISTICS -->
+
+        <section class="section">
+
+            <div class="container">
+
+                <div class="stats-grid">
+
+                    <div class="stat-card">
+
+                        <div class="stat-top">
+
+                            <p>Available Courses</p>
+                            <span class="stat-icon">📚</span>
+
+                        </div>
+
+                        <h3>06</h3>
+
+                        <p>Explore different subjects</p>
+
+                    </div>
+
+
+                    <div class="stat-card">
+
+                        <div class="stat-top">
+
+                            <p>Learning Categories</p>
+                            <span class="stat-icon">🎯</span>
+
+                        </div>
+
+                        <h3>04</h3>
+
+                        <p>Technology and programming</p>
+
+                    </div>
+
+
+                    <div class="stat-card">
+
+                        <div class="stat-top">
+
+                            <p>Learning Resources</p>
+                            <span class="stat-icon">🚀</span>
+
+                        </div>
+
+                        <h3>24/7</h3>
+
+                        <p>Explore at your own pace</p>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- COURSES SECTION -->
+
+        <section class="section courses-section" id="courses">
+
+            <div class="container">
+
+                <h2 class="section-title">
+                    Explore Our <span class="gradient-text">
+                        Courses
+                    </span>
+                </h2>
+
+                <p class="section-description">
+                    Discover courses designed to develop your
+                    technical knowledge and practical skills.
+                </p>
+
+
+                <div class="course-toolbar">
+
+                    <label class="search-box">
+
+                        <span>🔍</span>
+
+                        <input
+                            type="search"
+                            id="courseSearch"
+                            placeholder="Search courses..."
+                            aria-label="Search courses">
+
+                    </label>
+
+
+                    <div class="filter-buttons">
+
+                        <button
+                            class="filter-button active"
+                            data-category="all">
+                            All
+                        </button>
+
+                        <button
+                            class="filter-button"
+                            data-category="programming">
+                            Programming
+                        </button>
+
+                        <button
+                            class="filter-button"
+                            data-category="technology">
+                            Technology
+                        </button>
+
+                        <button
+                            class="filter-button"
+                            data-category="design">
+                            Design
+                        </button>
+
+                    </div>
+
+                </div>
+
+
+                <div class="course-grid" id="courseGrid">
+
+
+                    <!-- COURSE 1 -->
+
+                    <article class="course-card"
+                             data-category="programming"
+                             data-search="web development html css javascript frontend">
+
+                        <div class="course-banner banner-purple">
+                            🌐
+                        </div>
+
+                        <div class="course-body">
+
+                            <span class="course-category">
+                                Programming
+                            </span>
+
+                            <h3>Web Development</h3>
+
+                            <p class="course-description">
+                                Learn the fundamentals of HTML,
+                                CSS, JavaScript, and responsive
+                                website design.
+                            </p>
+
+                            <div class="course-meta">
+
+                                <span>📖 12 Lessons</span>
+                                <span>⏱ 6 Hours</span>
+
+                            </div>
+
+                            <div class="course-footer">
+
+                                <span class="level">
+                                    Beginner
+                                </span>
+
+                                <button
+                                    class="course-button"
+                                    data-course="Web Development">
+                                    Start Learning →
+                                </button>
+
+                            </div>
+
+                        </div>
+
+                    </article>
+
+
+                    <!-- COURSE 2 -->
+
+                    <article class="course-card"
+                             data-category="technology"
+                             data-search="cloud computing iaas paas saas deployment">
+
+                        <div class="course-banner banner-blue">
+                            ☁️
+                        </div>
+
+                        <div class="course-body">
+
+                            <span class="course-category">
+                                Technology
+                            </span>
+
+                            <h3>Cloud Computing</h3>
+
+                            <p class="course-description">
+                                Explore cloud service models,
+                                virtual machines, storage,
+                                and cloud deployment.
+                            </p>
+
+                            <div class="course-meta">
+
+                                <span>📖 8 Lessons</span>
+                                <span>⏱ 4 Hours</span>
+
+                            </div>
+
+                            <div class="course-footer">
+
+                                <span class="level">
+                                    Beginner
+                                </span>
+
+                                <button
+                                    class="course-button"
+                                    data-course="Cloud Computing">
+                                    Start Learning →
+                                </button>
+
+                            </div>
+
+                        </div>
+
+                    </article>
+
+
+                    <!-- COURSE 3 -->
+
+                    <article class="course-card"
+                             data-category="programming"
+                             data-search="python programming variables loops functions">
+
+                        <div class="course-banner banner-orange">
+                            🐍
+                        </div>
+
+                        <div class="course-body">
+
+                            <span class="course-category">
+                                Programming
+                            </span>
+
+                            <h3>Python Programming</h3>
+
+                            <p class="course-description">
+                                Understand variables, conditions,
+                                loops, functions, and basic
+                                problem-solving.
+                            </p>
+
+                            <div class="course-meta">
+
+                                <span>📖 10 Lessons</span>
+                                <span>⏱ 5 Hours</span>
+
+                            </div>
+
+                            <div class="course-footer">
+
+                                <span class="level">
+                                    Beginner
+                                </span>
+
+                                <button
+                                    class="course-button"
+                                    data-course="Python Programming">
+                                    Start Learning →
+                                </button>
+
+                            </div>
+
+                        </div>
+
+                    </article>
+
+
+                    <!-- COURSE 4 -->
+
+                    <article class="course-card"
+                             data-category="programming"
+                             data-search="java object oriented programming oop">
+
+                        <div class="course-banner banner-green">
+                            ☕
+                        </div>
+
+                        <div class="course-body">
+
+                            <span class="course-category">
+                                Programming
+                            </span>
+
+                            <h3>Java Programming</h3>
+
+                            <p class="course-description">
+                                Learn Java syntax, control flow,
+                                methods, classes, and
+                                object-oriented concepts.
+                            </p>
+
+                            <div class="course-meta">
+
+                                <span>📖 14 Lessons</span>
+                                <span>⏱ 7 Hours</span>
+
+                            </div>
+
+                            <div class="course-footer">
+
+                                <span class="level">
+                                    Beginner
+                                </span>
+
+                                <button
+                                    class="course-button"
+                                    data-course="Java Programming">
+                                    Start Learning →
+                                </button>
+
+                            </div>
+
+                        </div>
+
+                    </article>
+
+
+                    <!-- COURSE 5 -->
+
+                    <article class="course-card"
+                             data-category="design"
+                             data-search="ui ux design interface wireframe">
+
+                        <div class="course-banner banner-pink">
+                            🎨
+                        </div>
+
+                        <div class="course-body">
+
+                            <span class="course-category">
+                                Design
+                            </span>
+
+                            <h3>UI/UX Design</h3>
+
+                            <p class="course-description">
+                                Explore user interface design,
+                                wireframes, visual hierarchy,
+                                and usability.
+                            </p>
+
+                            <div class="course-meta">
+
+                                <span>📖 6 Lessons</span>
+                                <span>⏱ 3 Hours</span>
+
+                            </div>
+
+                            <div class="course-footer">
+
+                                <span class="level">
+                                    Beginner
+                                </span>
+
+                                <button
+                                    class="course-button"
+                                    data-course="UI/UX Design">
+                                    Start Learning →
+                                </button>
+
+                            </div>
+
+                        </div>
+
+                    </article>
+
+
+                    <!-- COURSE 6 -->
+
+                    <article class="course-card"
+                             data-category="technology"
+                             data-search="cybersecurity network password security">
+
+                        <div class="course-banner banner-yellow">
+                            🔐
+                        </div>
+
+                        <div class="course-body">
+
+                            <span class="course-category">
+                                Technology
+                            </span>
+
+                            <h3>Cybersecurity Basics</h3>
+
+                            <p class="course-description">
+                                Discover network security,
+                                authentication, data protection,
+                                and digital safety.
+                            </p>
+
+                            <div class="course-meta">
+
+                                <span>📖 7 Lessons</span>
+                                <span>⏱ 3 Hours</span>
+
+                            </div>
+
+                            <div class="course-footer">
+
+                                <span class="level">
+                                    Beginner
+                                </span>
+
+                                <button
+                                    class="course-button"
+                                    data-course="Cybersecurity Basics">
+                                    Start Learning →
+                                </button>
+
+                            </div>
+
+                        </div>
+
+                    </article>
+
+
+                </div>
+
+
+                <div class="no-results" id="noResults">
+
+                    <h3>No courses found</h3>
+
+                    <p>Try a different search term or category.</p>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- LEARNING DASHBOARD -->
+
+        <section class="section" id="dashboard">
+
+            <div class="container">
+
+                <h2 class="section-title">
+                    Your Learning <span class="gradient-text">
+                        Dashboard
+                    </span>
+                </h2>
+
+                <p class="section-description">
+                    A sample dashboard showing learning progress
+                    and educational achievements.
+                </p>
+
+
+                <div class="dashboard-grid">
+
+
+                    <!-- PROGRESS -->
+
+                    <div class="dashboard-card">
+
+                        <h3>Course Progress</h3>
+
+                        <p class="dashboard-subtitle">
+                            Demonstration data for this project.
+                        </p>
+
+
+                        <div class="progress-item">
+
+                            <div class="progress-heading">
+
+                                <span>Web Development</span>
+                                <span>72%</span>
+
+                            </div>
+
+                            <div class="progress-track">
+
+                                <div class="progress-fill"
+                                     style="width:72%">
+                                </div>
+
+                            </div>
+
+                        </div>
+
+
+                        <div class="progress-item">
+
+                            <div class="progress-heading">
+
+                                <span>Cloud Computing</span>
+                                <span>45%</span>
+
+                            </div>
+
+                            <div class="progress-track">
+
+                                <div class="progress-fill"
+                                     style="width:45%">
+                                </div>
+
+                            </div>
+
+                        </div>
+
+
+                        <div class="progress-item">
+
+                            <div class="progress-heading">
+
+                                <span>Python Programming</span>
+                                <span>60%</span>
+
+                            </div>
+
+                            <div class="progress-track">
+
+                                <div class="progress-fill"
+                                     style="width:60%">
+                                </div>
+
+                            </div>
+
+                        </div>
+
+
+                        <div class="dashboard-note">
+
+                            ℹ️ These progress values are sample
+                            data and do not represent a real user.
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- ACHIEVEMENTS -->
+
+                    <div class="dashboard-card">
+
+                        <h3>Learning Highlights</h3>
+
+                        <p class="dashboard-subtitle">
+                            Example achievements and goals.
+                        </p>
+
+
+                        <div class="achievement">
+
+                            <div class="achievement-icon">
+                                🎯
+                            </div>
+
+                            <div>
+
+                                <h4>Learning Goals</h4>
+
+                                <p>Practice consistently and
+                                    explore new topics.</p>
+
+                            </div>
+
+                        </div>
+
+
+                        <div class="achievement">
+
+                            <div class="achievement-icon">
+                                🏆
+                            </div>
+
+                            <div>
+
+                                <h4>Skill Development</h4>
+
+                                <p>Build technical knowledge
+                                    through practical learning.</p>
+
+                            </div>
+
+                        </div>
+
+
+                        <div class="achievement">
+
+                            <div class="achievement-icon">
+                                🚀
+                            </div>
+
+                            <div>
+
+                                <h4>Next Milestone</h4>
+
+                                <p>Complete a course and
+                                    build a small project.</p>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- CLOUD COMPUTING SECTION -->
+
+        <section class="section cloud-section" id="cloud">
+
+            <div class="container">
+
+                <h2 class="section-title">
+                    Powered by <span class="gradient-text">
+                        Cloud Technology
+                    </span>
+                </h2>
+
+                <p class="section-description">
+                    Explore how cloud computing concepts relate
+                    to modern online learning platforms.
+                </p>
+
+
+                <div class="cloud-grid">
+
+
+                    <article class="cloud-card">
+
+                        <div class="cloud-icon">🌐</div>
+
+                        <h3>Cloud Hosting</h3>
+
+                        <p>
+                            Cloud hosting allows websites and
+                            applications to be accessed over
+                            the internet. This project can be
+                            deployed using Vercel.
+                        </p>
+
+                    </article>
+
+
+                    <article class="cloud-card">
+
+                        <div class="cloud-icon">📦</div>
+
+                        <h3>Cloud Storage</h3>
+
+                        <p>
+                            Cloud storage services store data
+                            on remote infrastructure and make
+                            it accessible over a network.
+                        </p>
+
+                    </article>
+
+
+                    <article class="cloud-card">
+
+                        <div class="cloud-icon">⚡</div>
+
+                        <h3>Scalability</h3>
+
+                        <p>
+                            Cloud platforms can support changing
+                            workloads by adjusting computing
+                            resources when required.
+                        </p>
+
+                    </article>
+
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- PRACTICAL SCREENSHOTS -->
+
+        <section class="section" id="evidence">
+
+            <div class="container">
+
+                <h2 class="section-title">
+                    Practical <span class="gradient-text">
+                        Evidence
+                    </span>
+                </h2>
+
+                <p class="section-description">
+                    Add screenshots of your actual website,
+                    GitHub repository, and Vercel deployment.
+                </p>
+
+
+                <div class="evidence-grid">
+
+
+                    <!-- WEBSITE EVIDENCE -->
+
+                    <article class="evidence-card">
+
+                        <div class="evidence-icon">🌐</div>
+
+                        <h3>Website Screenshot</h3>
+
+                        <p>
+                            Capture the running EduCloud website.
+                        </p>
+
+                        <div class="evidence-preview"
+                             id="previewWebsite">
+
+                            <span>
+                                Website preview will appear here.
+                            </span>
+
+                        </div>
+
+                        <label class="upload-button"
+                               for="uploadWebsite">
+
+                            Choose Screenshot
+
+                        </label>
+
+                        <input
+                            class="evidence-input"
+                            type="file"
+                            id="uploadWebsite"
+                            accept="image/*">
+
+                    </article>
+
+
+                    <!-- GITHUB EVIDENCE -->
+
+                    <article class="evidence-card">
+
+                        <div class="evidence-icon">💻</div>
+
+                        <h3>GitHub Repository</h3>
+
+                        <p>
+                            Capture your repository and source code.
+                        </p>
+
+                        <div class="evidence-preview"
+                             id="previewGithub">
+
+                            <span>
+                                GitHub screenshot will appear here.
+                            </span>
+
+                        </div>
+
+                        <label class="upload-button"
+                               for="uploadGithub">
+
+                            Choose Screenshot
+
+                        </label>
+
+                        <input
+                            class="evidence-input"
+                            type="file"
+                            id="uploadGithub"
+                            accept="image/*">
+
+                    </article>
+
+
+                    <!-- VERCEL EVIDENCE -->
+
+                    <article class="evidence-card">
+
+                        <div class="evidence-icon">🚀</div>
+
+                        <h3>Vercel Deployment</h3>
+
+                        <p>
+                            Capture the successful deployment.
+                        </p>
+
+                        <div class="evidence-preview"
+                             id="previewVercel">
+
+                            <span>
+                                Vercel screenshot will appear here.
+                            </span>
+
+                        </div>
+
+                        <label class="upload-button"
+                               for="uploadVercel">
+
+                            Choose Screenshot
+
+                        </label>
+
+                        <input
+                            class="evidence-input"
+                            type="file"
+                            id="uploadVercel"
+                            accept="image/*">
+
+                    </article>
+
+
+                </div>
+
+                <p style="
+                    margin-top:20px;
+                    color:var(--muted);
+                    font-size:12px;
+                ">
+
+                    Note: Screenshot previews are temporary.
+                    To publish screenshots online, add their image
+                    files to your project and reference them in HTML.
+
+                </p>
+
+            </div>
+
+        </section>
+
+
+        <!-- PROJECT DEPLOYMENT -->
+
+        <section class="section">
+
+            <div class="container">
+
+                <div class="dashboard-card"
+                     style="text-align:center; padding:45px 25px;">
+
+                    <div style="font-size:45px; margin-bottom:15px;">
+                        ☁️
+                    </div>
+
+                    <h2 class="section-title">
+                        Learn. Create. <span class="gradient-text">
+                            Deploy.
+                        </span>
+                    </h2>
+
+                    <p class="section-description"
+                       style="margin-bottom:25px;">
+
+                        This project demonstrates how a website
+                        can be developed locally, hosted on GitHub,
+                        and deployed through a cloud platform.
+
+                    </p>
+
+                    <div style="
+                        display:flex;
+                        flex-wrap:wrap;
+                        justify-content:center;
+                        gap:12px;
+                    ">
+
+                        <a
+                            class="button"
+                            id="githubLink"
+                            href="https://github.com/"
+                            target="_blank"
+                            rel="noopener noreferrer">
+
+                            View GitHub ↗
+
+                        </a>
+
+                        <a
+                            class="button button-outline"
+                            id="liveLink"
+                            href="#home">
+
+                            Live Website ↗
+
+                        </a>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+    </main>
+
+
+    <!-- FOOTER -->
+
+    <footer>
+
+        <div class="container">
+
+            <div class="footer-grid">
+
+
+                <div class="footer-about">
+
+                    <a href="#home" class="logo">
+                        <span class="logo-icon">✦</span>
+                        EduCloud
+                    </a>
+
+                    <p>
+                        A modern online learning platform concept
+                        developed as a Cloud Computing practical
+                        project.
+                    </p>
+
+                </div>
+
+
+                <div class="footer-links">
+
+                    <h4>Quick Links</h4>
+
+                    <a href="#home">Home</a>
+                    <a href="#courses">Explore Courses</a>
+                    <a href="#dashboard">Dashboard</a>
+
+                </div>
+
+
+                <div class="footer-links">
+
+                    <h4>Project</h4>
+
+                    <a href="#cloud">Cloud Technology</a>
+                    <a href="#evidence">Practical Evidence</a>
+                    <a href="#home">Back to Top ↑</a>
+
+                </div>
+
+
+            </div>
+
+
+            <div class="footer-bottom">
+
+                © <span id="year"></span> EduCloud.
+                Created for educational purposes.
+
+            </div>
+
+        </div>
+
+    </footer>
+
+
+    <!-- TOAST MESSAGE -->
+
+    <div class="toast" id="toast" role="status"
+         aria-live="polite">
+    </div>
+
+
+    <!-- JAVASCRIPT -->
+
+    <script>
+
+        /* =========================
+           1. CURRENT YEAR
+        ========================= */
+
+        document.getElementById("year").textContent =
+            new Date().getFullYear();
+
+
+        /* =========================
+           2. DARK / LIGHT MODE
+        ========================= */
+
+        const themeButton =
+            document.getElementById("themeButton");
+
+        function updateThemeButton() {
+
+            const isDark =
+                document.body.classList.contains("dark");
+
+            themeButton.textContent = isDark ? "☀️" : "🌙";
+
+            themeButton.setAttribute(
+                "aria-label",
+                isDark ? "Switch to light mode" :
+                         "Switch to dark mode"
+            );
+
+        }
+
+        try {
+
+            if (localStorage.getItem("educloud-theme") === "dark") {
+                document.body.classList.add("dark");
+            }
+
+        } catch (error) {
+
+            // The theme still works if localStorage is unavailable.
+
+        }
+
+        updateThemeButton();
+
+        themeButton.addEventListener("click", function () {
+
+            document.body.classList.toggle("dark");
+
+            const theme =
+                document.body.classList.contains("dark")
+                    ? "dark"
+                    : "light";
+
+            try {
+
+                localStorage.setItem("educloud-theme", theme);
+
+            } catch (error) {
+
+                // Theme switching remains available for this session.
+
+            }
+
+            updateThemeButton();
+
+        });
+
+
+        /* =========================
+           3. COURSE SEARCH
+        ========================= */
+
+        const searchInput =
+            document.getElementById("courseSearch");
+
+        const courseCards =
+            document.querySelectorAll(".course-card");
+
+        const filterButtons =
+            document.querySelectorAll(".filter-button");
+
+        const noResults =
+            document.getElementById("noResults");
+
+        let selectedCategory = "all";
+
+        function filterCourses() {
+
+            const query =
+                searchInput.value.trim().toLowerCase();
+
+            let visibleCount = 0;
+
+            courseCards.forEach(function (card) {
+
+                const category =
+                    card.dataset.category;
+
+                const searchableText =
+                    (
+                        card.dataset.search + " " +
+                        card.innerText
+                    ).toLowerCase();
+
+                const matchesCategory =
+                    selectedCategory === "all" ||
+                    category === selectedCategory;
+
+                const matchesSearch =
+                    searchableText.includes(query);
+
+                const shouldShow =
+                    matchesCategory && matchesSearch;
+
+                card.style.display =
+                    shouldShow ? "" : "none";
+
+                if (shouldShow) {
+                    visibleCount++;
+                }
+
+            });
+
+            noResults.style.display =
+                visibleCount === 0 ? "block" : "none";
+
+        }
+
+        searchInput.addEventListener(
+            "input",
+            filterCourses
+        );
+
+        filterButtons.forEach(function (button) {
+
+            button.addEventListener("click", function () {
+
+                filterButtons.forEach(function (item) {
+                    item.classList.remove("active");
+                });
+
+                button.classList.add("active");
+
+                selectedCategory =
+                    button.dataset.category;
+
+                filterCourses();
+
+            });
+
+        });
+
+
+        /* =========================
+           4. TOAST NOTIFICATIONS
+        ========================= */
+
+        const toast =
+            document.getElementById("toast");
+
+        let toastTimer;
+
+        function showToast(message) {
+
+            toast.textContent = message;
+
+            toast.classList.add("show");
+
+            clearTimeout(toastTimer);
+
+            toastTimer = setTimeout(function () {
+
+                toast.classList.remove("show");
+
+            }, 3000);
+
+        }
+
+
+        /* =========================
+           5. COURSE BUTTONS
+        ========================= */
+
+        document.querySelectorAll(".course-button")
+            .forEach(function (button) {
+
+                button.addEventListener("click", function () {
+
+                    const courseName =
+                        button.dataset.course;
+
+                    showToast(
+                        courseName +
+                        " selected! Course lessons are demo content."
+                    );
+
+                });
+
+            });
+
+
+        /* =========================
+           6. SCREENSHOT PREVIEWS
+        ========================= */
+
+        const screenshotInputs = [
+
+            {
+                inputId: "uploadWebsite",
+                previewId: "previewWebsite"
+            },
+
+            {
+                inputId: "uploadGithub",
+                previewId: "previewGithub"
+            },
+
+            {
+                inputId: "uploadVercel",
+                previewId: "previewVercel"
+            }
+
+        ];
+
+        const activeImageUrls = [];
+
+        screenshotInputs.forEach(function (item) {
+
+            const input =
+                document.getElementById(item.inputId);
+
+            const preview =
+                document.getElementById(item.previewId);
+
+            input.addEventListener("change", function () {
+
+                const file = input.files[0];
+
+                if (!file) {
+                    return;
+                }
+
+                if (!file.type.startsWith("image/")) {
+
+                    showToast("Please select an image file.");
+
+                    input.value = "";
+
+                    return;
+
+                }
+
+                if (file.size > 5 * 1024 * 1024) {
+
+                    showToast(
+                        "Please choose an image smaller than 5 MB."
+                    );
+
+                    input.value = "";
+
+                    return;
+
+                }
+
+                const imageUrl =
+                    URL.createObjectURL(file);
+
+                activeImageUrls.push(imageUrl);
+
+                const image =
+                    document.createElement("img");
+
+                image.src = imageUrl;
+
+                image.alt = "Selected practical screenshot";
+
+                preview.replaceChildren(image);
+
+                showToast("Screenshot preview updated.");
+
+            });
+
+        });
+
+
+        /* =========================
+           7. PROJECT LINKS
+        ========================= */
+
+        /*
+           After deployment, replace these example
+           URLs with your actual project URLs.
+        */
+
+        const projectLinks = {
+
+            github: "https://github.com/YOUR_USERNAME/YOUR_REPOSITORY",
+
+            live: "https://YOUR_PROJECT.vercel.app"
+
+        };
+
+        const githubLink =
+            document.getElementById("githubLink");
+
+        const liveLink =
+            document.getElementById("liveLink");
+
+
+        if (
+            !projectLinks.github.includes("YOUR_USERNAME") &&
+            !projectLinks.github.includes("YOUR_REPOSITORY")
+        ) {
+
+            githubLink.href = projectLinks.github;
+
+        }
+
+
+        if (!projectLinks.live.includes("YOUR_PROJECT")) {
+
+            liveLink.href = projectLinks.live;
+
+            liveLink.target = "_blank";
+
+            liveLink.rel = "noopener noreferrer";
+
+        }
+
+    </script>
+
+</body>
+
+</html>
